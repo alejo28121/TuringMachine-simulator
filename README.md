@@ -93,7 +93,7 @@ Este proyecto fue desarrollado con fines educativos para fortalecer la comprensi
 
 - Alejandro Grajales Vargas.
 - Juan Manuel Acosta Ramirez.
-- Juan Manuel Acosta Ramirez.
+- Miguel Angel Castillo Castrillon.
 
 ---
 
