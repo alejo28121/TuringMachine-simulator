@@ -1,0 +1,197 @@
+.Main-transitions-container{
+    width: 100%;
+    min-height: 100%;
+    padding-inline: 2vw;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    box-sizing: border-box;
+}
+
+.Header-transitions{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Title-transitions{
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.Description-transitions{
+    margin-top: 8px;
+    color: var(--text-secondary);
+}
+
+.Create-transition-container{
+    width: 100%;
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit,minmax(150px,1fr));
+    gap: 14px;
+
+    background: var(--bg-surface);
+    border: 1px solid var(--border-soft);
+
+    border-radius: 20px;
+
+    padding: 20px;
+
+    box-shadow: var(--shadow-sm);
+
+    box-sizing: border-box;
+}
+
+.Input-transition,
+.Select-direction{
+    border: none;
+    outline: none;
+
+    background: var(--bg-main);
+
+    color: var(--text-main);
+
+    border-radius: 14px;
+
+    padding: 14px;
+
+    font-size: 14px;
+}
+
+.Button-create-transition{
+    border: none;
+
+    background: var(--primary);
+
+    color: white;
+
+    border-radius: 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.Button-create-transition:hover{
+    transform: translateY(-2px);
+    box-shadow: var(--glow-primary);
+}
+
+.Transitions-grid{
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fill,minmax(280px,1fr));
+
+    gap: 18px;
+}
+
+.Transition-card{
+    background: var(--bg-surface);
+
+    border: 1px solid var(--border-soft);
+
+    border-radius: 20px;
+
+    padding: 18px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+
+    box-shadow: var(--shadow-sm);
+}
+
+.Transition-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Transition-title-container{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.Transition-title{
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.Transition-icon{
+    color: var(--primary);
+}
+
+.Delete-transition-button{
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+
+.Transition-body{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.Transition-state{
+    flex: 1;
+
+    background: var(--bg-main);
+
+    color: var(--text-main);
+
+    border-radius: 12px;
+
+    padding: 12px;
+
+    text-align: center;
+
+    font-weight: 600;
+}
+
+.Transition-symbol{
+    min-width: 42px;
+
+    background: rgba(123,211,137,0.12);
+
+    color: var(--primary);
+
+    border-radius: 12px;
+
+    padding: 10px;
+
+    text-align: center;
+
+    font-weight: 700;
+}
+
+.Arrow-transition{
+    color: var(--text-muted);
+}
+
+.Transition-footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    color: var(--text-secondary);
+
+    font-size: 14px;
+}
+
+.Transition-footer strong{
+    color: var(--text-main);
+    margin-left: 6px;
+}

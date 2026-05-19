@@ -1,0 +1,146 @@
+.Main-states-container{
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    box-sizing: border-box;
+}
+
+.Header-states{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Title-states{
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.Description-states{
+    color: var(--text-secondary);
+    margin-top: 8px;
+}
+
+.Create-state-container{
+    width: 100%;
+    display: flex;
+    gap: 16px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-soft);
+    border-radius: 18px;
+    padding: 18px;
+    box-shadow: var(--shadow-sm);
+    box-sizing: border-box;
+}
+
+.Input-state{
+    flex: 1;
+    border: none;
+    outline: none;
+    background: var(--bg-main);
+    color: var(--text-main);
+    border-radius: 14px;
+    padding: 14px;
+    font-size: 15px;
+}
+
+.Button-create-state{
+    border: none;
+    background: var(--primary);
+    color: #fff;
+    border-radius: 14px;
+    padding: 0 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.Button-create-state:hover{
+    transform: translateY(-2px);
+    box-shadow: var(--glow-primary);
+}
+
+.States-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(260px,1fr));
+    gap: 18px;
+}
+
+.State-card{
+    background: var(--bg-surface);
+    border: 1px solid var(--border-soft);
+    border-radius: 20px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    box-shadow: var(--shadow-sm);
+}
+
+.State-card-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.State-name-container{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.State-icon{
+    color: var(--primary);
+}
+
+.State-name{
+    color: var(--text-main);
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.Delete-state-button{
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+
+.State-badges{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.Badge-state{
+    border: none;
+    background: var(--bg-main);
+    color: var(--text-secondary);
+    border-radius: 999px;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.Badge-state.active{
+    background: var(--primary);
+    color: white;
+}
+
+.Badge-state.accept{
+    background: rgba(34,197,94,0.15);
+    color: var(--success);
+}
+
+.Badge-state.reject{
+    background: rgba(236,72,153,0.15);
+    color: var(--pending);
+}

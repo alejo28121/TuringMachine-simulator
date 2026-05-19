@@ -1,0 +1,135 @@
+.Main-tape-container{
+    width: 100%;
+    min-height: 100%;
+    padding-left: 2vw;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    box-sizing: border-box;
+}
+
+.Header-tape{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Title-tape{
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.Description-tape{
+    margin-top: 8px;
+    color: var(--text-secondary);
+}
+
+.Tape-config-container{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    padding: 20px;
+    border-radius: 20px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-soft);
+    box-shadow: var(--shadow-sm);
+    box-sizing: border-box;
+}
+
+.Input-group-tape{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.Label-tape{
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.Input-tape{
+    min-width: 240px;
+    padding: 14px;
+    border: none;
+    outline: none;
+    border-radius: 14px;
+    background: var(--bg-main);
+    color: var(--text-main);
+    font-size: 15px;
+}
+
+.Input-tape.small{
+    min-width: 80px;
+}
+
+.Button-save-tape{
+    margin-left: auto;
+    border: none;
+    border-radius: 14px;
+    padding: 0 20px;
+    background: var(--primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: default;
+    box-shadow: var(--glow-primary);
+}
+
+.Tape-preview-container{
+    width: 100%;
+    background: var(--bg-surface);
+    border-radius: 20px;
+    border: 1px solid var(--border-soft);
+    padding: 24px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    box-shadow: var(--shadow-sm);
+}
+
+.Tape-preview-header{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+.Tape-cells-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.Tape-cell{
+    width: 62px;
+    height: 62px;
+    border-radius: 16px;
+    background: var(--bg-main);
+    border: 1px solid var(--border-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    color: var(--text-main);
+    font-size: 20px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.Tape-cell.active{
+    background: var(--primary);
+    color: white;
+    box-shadow: var(--glow-primary);
+    transform: translateY(-2px);
+}
+
+.Head-indicator{
+    position: absolute;
+    bottom: -22px;
+    color: var(--primary);
+}
