@@ -6,6 +6,7 @@ import States from './components/states'
 import Transitions from './components/transitions'
 import Tape from './components/Tape'
 import Simulations from './components/Simulation'
+import Home from './components/home'
 import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
 
 function App() {
@@ -18,6 +19,8 @@ function App() {
             <Route path='login' element={<Login/>}/>
           </Route>
           <Route path='/dashboard/' element={<Dashboard/>}>
+            <Route index element={<Navigate to="home" replace />} />
+            <Route path='home' element={<Home/>}/>
             <Route path='states' element={<States/>}/>
             <Route path='transitions' element={<Transitions/>}/>
             <Route path='tape' element={<Tape/>}/>
