@@ -22,7 +22,7 @@ function Login(){
         setErrorState("")
         const start = Date.now();
         try{
-            const response = await fetch(`http://${import.meta.env.VITE_BACKEND_URL}/auth/login`, {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/login`, {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json',
