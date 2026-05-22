@@ -1,13 +1,26 @@
 .Main-transitions-container{
     width: 100%;
-    min-height: 100%;
+    min-height: fit-content;
     padding-inline: 2vw;
     display: flex;
     flex-direction: column;
     gap: 24px;
     box-sizing: border-box;
 }
-
+.Graph-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.Flow-wrapper{
+    width: 80%;
+    height: 400px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-soft);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
 .Header-transitions{
     display: flex;
     justify-content: space-between;

@@ -1,4 +1,5 @@
 import '../assets/transitions.css';
+import SimulationGraph from '../components/ReactFlow';
 
 import { useState, useEffect } from 'react';
 
@@ -170,6 +171,51 @@ function Transitions(){
                     <Plus size={18}/>
                     Crear
                 </button>
+            </div>
+            <div className='Header-transitions'>
+                <div>
+                    <span className='Title-transitions'>
+                        Grafo
+                    </span>
+                    <p className='Description-transitions'>
+                        Vista de las funciones de transición
+                        de la Máquina de Turing.
+                    </p>
+                </div>
+            </div>
+            <div className='Graph-container'>
+                <div className='Flow-wrapper'>
+                    <SimulationGraph
+                        nodes={
+                            states.map((state, index) => ({
+                                id: state.name,
+
+                                type: 'default',
+
+                                position: {
+                                    x: (index % 3) * 250,
+                                    y: Math.floor(index / 3) * 180
+                                },
+
+                                data: {
+                                    label: state.name
+                                }
+                            }))
+                        }
+                        edges={
+                            transitions.map((transition) => ({
+                                id: `edge-${transition.id}`,
+                                source: transition.currentState,
+                                target: transition.nextState,
+                                animated: true,
+                                label:
+                                    `${transition.readSymbol} → ` +
+                                    `${transition.writeSymbol}, ` +
+                                    `${transition.direction}`
+                            }))
+                        }
+                    />
+                </div>
             </div>
             <div className='Transitions-grid'>
                 {transitions.map((transition) => (

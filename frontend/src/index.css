@@ -124,3 +124,77 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+/* =========================
+   REACT FLOW THEME
+========================= */
+
+.react-flow{
+  --xy-background-color: var(--bg-surface);
+
+  --xy-node-background-color: var(--bg-soft);
+  --xy-node-color: var(--text-main);
+  --xy-node-border: 1px solid var(--border-soft);
+
+  --xy-edge-stroke: var(--primary);
+  --xy-edge-stroke-selected: var(--accent-cyan);
+
+  --xy-controls-button-background-color: var(--bg-surface);
+  --xy-controls-button-color: var(--text-main);
+  --xy-controls-button-border-color: var(--border-soft);
+
+  --xy-controls-button-background-color-hover: var(--layer-1);
+
+  --xy-minimap-background-color: var(--bg-soft);
+  --xy-minimap-node-background-color: var(--layer-2);
+  --xy-minimap-node-stroke-color: var(--primary);
+  --xy-minimap-node-stroke-width: 1.5;
+
+  --xy-background-pattern-dots-color: var(--border-soft);
+
+  --xy-edge-label-background-color: var(--bg-surface);
+  --xy-edge-label-color: var(--text-main);
+
+  --xy-selection-background-color: rgba(123,211,137,0.12);
+
+  background: var(--bg-surface);
+}
+
+/* NODOS */
+.react-flow__node{
+  width: 80px !important;
+  height: 80px !important;
+
+  border-radius: 999px !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  background: var(--bg-soft) !important;
+  border: 2px solid var(--primary) !important;
+
+  color: var(--text-main) !important;
+  font-weight: 700 !important;
+
+  box-shadow: var(--shadow-md) !important;
+
+  padding: 0 !important;
+
+  overflow: hidden !important;
+}
+.react-flow__node-default{
+  border-radius: 999px !important;
+}
+
+/* LABELS */
+.react-flow__edge-text{
+  fill: var(--text-main);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* CONTROLES */
+.react-flow__controls{
+  border-radius: 14px;
+  overflow: hidden;
+}

@@ -1,4 +1,5 @@
 import '../assets/states.css';
+import SimulationGraph from '../components/ReactFlow';
 import { useState, useEffect } from 'react';
 import {
     Plus,
@@ -93,6 +94,39 @@ function States(){
                     <Plus size={18}/>
                     Crear estado
                 </button>
+            </div>
+            <div className='Header-transitions'>
+                <div>
+                    <span className='Title-transitions'>
+                        Grafo
+                    </span>
+                    <p className='Description-transitions'>
+                        Vista de los estados
+                        de la Máquina de Turing.
+                    </p>
+                </div>
+            </div>
+            <div className='Graph-container'>
+                <div className='Flow-wrapper'>
+                    <SimulationGraph
+                        nodes={
+                            states.map((state, index) => ({
+                                id: state.name,
+
+                                type: 'default',
+
+                                position: {
+                                    x: (index % 3) * 250,
+                                    y: Math.floor(index / 3) * 180
+                                },
+
+                                data: {
+                                    label: state.name
+                                }
+                            }))
+                        }
+                    />
+                </div>
             </div>
             <div className='States-grid'>
                 {states.map((state) => (
