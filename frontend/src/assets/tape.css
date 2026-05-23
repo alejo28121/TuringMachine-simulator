@@ -92,13 +92,19 @@
 }
 
 .Tape-preview-header{
+    width: 100%;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 10px;
     color: var(--text-main);
     font-weight: 600;
 }
-
+.Tape-preview-title{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
 .Tape-cells-container{
     display: flex;
     flex-wrap: wrap;
@@ -130,6 +136,28 @@
 
 .Head-indicator{
     position: absolute;
-    bottom: -22px;
+    top: -22px;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 15px solid #7bd389;
     color: var(--primary);
+}
+.Head-indicator-text{
+    position: absolute;
+    top: -38px;
+    font-size: 12px;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.Tape-preview-controls{
+    width: 60px;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    background: var(--bg-main);
+    padding: 4px 8px;
+    cursor: pointer;
 }

@@ -5,18 +5,21 @@ import { useState, useEffect } from 'react';
 import {
     Save,
     Rows3,
+    ArrowDown,
     MoveRight,
+    MoveLeft,
+    StepBack,
+    StepForward,
+    Pause,
     CircleSlash
 } from 'lucide-react';
 
 function Tape(){
-
+    const [previousTape, setPreviousTape] = useState(null);
     const [tape, setTape] = useState(() => {
-
         const savedTape = localStorage.getItem(
             'tm_tape'
         );
-
         return savedTape
             ? JSON.parse(savedTape)
             : {
@@ -90,7 +93,29 @@ function Tape(){
         ...tapeArray,
         ...rightInfinite
     ];
+    const moveLeft = () => {
 
+        setPreviousTape('left');
+
+        setTape((prev) => ({
+            ...prev,
+
+            headPosition:
+                prev.headPosition > 0
+                ? prev.headPosition - 1
+                : 0
+        }));
+    };
+    const moveRight = () => {
+
+        setPreviousTape('right');
+
+        setTape((prev) => ({
+            ...prev,
+
+            headPosition: prev.headPosition + 1
+        }));
+    };
     const visualHeadPosition =
         tape.headPosition + leftInfinite.length;
     return(
@@ -151,10 +176,34 @@ function Tape(){
             </div>
             <div className='Tape-preview-container'>
                 <div className='Tape-preview-header'>
-                    <Rows3 size={18}/>
-                    <span>
-                        Vista previa de la cinta
-                    </span>
+                    <div className='Tape-preview-title'>
+                        <Rows3 size={18}/>
+                        <span>
+                            Vista previa de la cinta
+                        </span>
+                    </div>
+                    <div className='Tape-preview-controls'>
+                        <StepBack
+                            size={18}
+                            onClick={() => {
+                                moveLeft();
+                                setPreviousTape('left');
+                            }}
+                        />
+                        <Pause
+                            size={18}
+                            onClick={() => {
+                                setPreviousTape(null);
+                            }}
+                        />
+                        <StepForward
+                            size={18}
+                            onClick={() => {
+                                moveRight();
+                                setPreviousTape('right');
+                            }}
+                        />
+                    </div>
                 </div>
                 <div className='Tape-cells-container'>
                     {fullTape.map((symbol, index) => {
@@ -191,9 +240,15 @@ function Tape(){
                                     }
                                 </span>
                                 {index === visualHeadPosition && (
-                                    <div className='Head-indicator'>
-                                        <MoveRight size={14}/>
-                                    </div>
+                                    <>
+                                        <span className='Head-indicator-text'>
+                                            <MoveLeft style={previousTape === 'left' ? { display: 'block' } : {display: 'none'}} size={14}/>
+                                            <ArrowDown style={previousTape === null ? { display: 'block' } : {display: 'none'}} size={14}/>Cabezal<ArrowDown style={previousTape === null ? { display: 'block' } : {display: 'none'}} size={14}/>
+                                            <MoveRight style={previousTape === 'right' ? { display: 'block' } : {display: 'none'}} size={14}/>
+                                        </span>
+                                        <div className='Head-indicator'>
+                                        </div>
+                                    </>
                                 )}
                             </div>
                         );
