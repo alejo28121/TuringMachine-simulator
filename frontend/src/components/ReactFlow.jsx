@@ -51,7 +51,6 @@ function Graph({ nodes: initialNodes, edges: initialEdges }) {
         }else{
 
             setNodes(initialNodes);
-
         }
 
     }, [initialNodes, setNodes]);
@@ -84,12 +83,15 @@ function Graph({ nodes: initialNodes, edges: initialEdges }) {
 
     useEffect(() => {
 
-        fitView({
-            padding: 0.3,
-            duration: 800
-        });
+        if(nodes.length > 0){
 
-    }, [fitView]);
+            fitView({
+                padding: 0.3,
+                duration: 800
+            });
+        }
+
+    }, [nodes, fitView]);
 
     return (
         <div style={{ width: '100%', height: '400px' }}>
@@ -102,7 +104,15 @@ function Graph({ nodes: initialNodes, edges: initialEdges }) {
 
                 onNodeDragStop={saveNodePosition}
 
+                nodesDraggable={true}
+                nodesConnectable={false}
+                elementsSelectable={true}
+
                 fitView
+
+                fitViewOptions={{
+                    padding: 0.3
+                }}
 
                 proOptions={{
                     hideAttribution: true
