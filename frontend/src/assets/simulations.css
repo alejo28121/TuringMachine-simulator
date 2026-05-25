@@ -201,10 +201,34 @@
     padding: 24px;
     gap: 18px;
     display: flex;
+    height: fit-content;
     flex-direction: column;
     box-shadow: var(--shadow-sm);
 }
+.Speed-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 14px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-soft);
+    color: var(--text-main);
+    font-size: 13px;
+    font-weight: 600;
+}
 
+.Speed-control input {
+    width: 140px;
+    accent-color: var(--primary);
+    cursor: pointer;
+}
+
+.Speed-control label {
+    color: var(--text-secondary);
+    font-size: 12px;
+    min-width: 70px;
+}
 .Simulator-transitions-grid{
     display: flex;
     flex-direction: column;
@@ -322,6 +346,93 @@
     border: 1px solid var(--border-soft);
     color: var(--text-secondary);
     line-height: 1.5;
+}
+.Simulator-table-panel {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-soft);
+    border-radius: 24px;
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.Transition-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: var(--text-main);
+    font-size: 14px;
+}
+
+.Transition-table th {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid var(--border-soft);
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.Transition-table td {
+    padding: 12px;
+    border-bottom: 1px solid var(--border-soft);
+}
+
+.Transition-table tr:hover {
+    background: var(--bg-main);
+}
+.Simulator-log-panel {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-soft);
+    border-radius: 24px;
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.Simulator-log {
+    max-height: 260px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-right: 6px;
+}
+
+/* Scroll bonito (opcional pero pro) */
+.Simulator-log::-webkit-scrollbar {
+    width: 6px;
+}
+
+.Simulator-log::-webkit-scrollbar-thumb {
+    background: var(--border-soft);
+    border-radius: 10px;
+}
+
+.Log-entry {
+    background: var(--bg-main);
+    border: 1px solid var(--border-soft);
+    border-radius: 16px;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    transition: 0.2s;
+}
+
+.Log-entry:hover {
+    transform: translateY(-2px);
+    border-color: var(--primary);
+}
+
+.Log-entry strong {
+    color: var(--primary);
 }
 
 @media(max-width: 1100px){

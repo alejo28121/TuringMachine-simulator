@@ -7,6 +7,7 @@ import Transitions from './components/transitions'
 import Tape from './components/Tape'
 import Simulations from './components/Simulation'
 import Home from './components/home'
+import MachinePresetModule from './components/MachinePresets'
 import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           </Route>
           <Route path='/dashboard/' element={<Dashboard/>}>
             <Route index element={<Navigate to="home" replace />} />
+            <Route path='machines' element={<MachinePresetModule/>}/>
             <Route path='home' element={<Home/>}/>
             <Route path='states' element={<States/>}/>
             <Route path='transitions' element={<Transitions/>}/>

@@ -75,6 +75,11 @@ function Dashboard(){
             icon: LayoutDashboard
         },
         {
+            name: "Maquinas",
+            route: "/dashboard/machines",
+            icon: Circle
+        },
+        {
             name: "Estados",
             route: "/dashboard/states",
             icon: Circle

@@ -3,20 +3,27 @@ const {
 } = require('../services/simulation.service');
 
 const runningMachines = {};
+const machineSpeed = {};
 
 function simulationSocket(io){
     io.on('connection', (socket) => {
         console.log('Cliente conectado:', socket.id);
+        socket.on('set-speed', (speed) => {
+            machineSpeed[socket.id] = speed;
+        });
         socket.on(
             'run-machine',
             async (machineData) => {
                 try{
                     runningMachines[socket.id] = true;
+                    const speed =
+                        machineSpeed[socket.id] || 1000;
                     const result =
                         await executeMachine(
                             machineData,
                             socket,
-                            runningMachines
+                            runningMachines,
+                            speed
                         );
                     socket.emit(
                         'machine-finished',
@@ -40,6 +47,7 @@ function simulationSocket(io){
         socket.on('disconnect', () => {
                 console.log('Cliente desconectado');
                 delete runningMachines[socket.id];
+                delete machineSpeed[socket.id];
             }
         );
     });

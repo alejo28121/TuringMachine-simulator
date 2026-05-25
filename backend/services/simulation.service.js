@@ -3,7 +3,7 @@ const delay = (ms) =>
         setTimeout(resolve, ms)
     );
 
-async function executeMachine(machineData, socket, runningMachines){
+async function executeMachine(machineData, socket, runningMachines, speed = 700){
     const {states, transitions, tape} = machineData;
     const blank = tape.blankSymbol || 'B';
     let currentState = states.find( state => state.initial);
@@ -71,7 +71,7 @@ async function executeMachine(machineData, socket, runningMachines){
                     : null
             }
         );
-        await delay(700);
+        await delay(speed);
         if(!transition){
             socket.emit(
                 'machine-finished',

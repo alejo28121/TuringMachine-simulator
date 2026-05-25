@@ -45,11 +45,17 @@ function Simulation(){
     const [machineTape, setMachineTape] = useState([]);
     const [currentState, setCurrentState] = useState('');
     const [headPosition, setHeadPosition] = useState(0);
+    const [executionLog, setExecutionLog] = useState([]);
+    const [speed, setSpeed] = useState(1000); 
     const [running, setRunning] = useState(false);
     const [step, setStep] = useState(0);
     const [activeTransition, setActiveTransition] = useState(null);
     const [result, setResult] = useState(null);
+    useEffect(() => {
+        if (!socket.connected) return;
 
+        socket.emit('set-speed', speed);
+    }, [speed]);
     useEffect(() => {
 
         initializeMachine();
@@ -83,6 +89,7 @@ function Simulation(){
         setActiveTransition(null);
 
         setRunning(false);
+        setExecutionLog([]);
     };
 
     const executeMachine = () => {
@@ -96,7 +103,8 @@ function Simulation(){
             {
                 states,
                 transitions,
-                tape: savedTape
+                tape: savedTape,
+                speed
             }
         );
     };
@@ -159,6 +167,16 @@ function Simulation(){
                 );
 
                 setStep(data.step);
+                setExecutionLog(prev => [
+                    ...prev,
+                    {
+                        step: data.step,
+                        state: data.currentState,
+                        head: data.headPosition,
+                        tape: data.tape,
+                        transition: data.activeTransition
+                    }
+                ]);
             }
         );
 
@@ -293,6 +311,20 @@ function Simulation(){
                         <RotateCcw size={17}/>
                         Reiniciar
                     </button>
+                    <div className="Speed-control">
+                        <label>Velocidad</label>
+
+                        <input
+                            type="range"
+                            min="100"
+                            max="2000"
+                            step="100"
+                            value={speed}
+                            onChange={(e) => setSpeed(Number(e.target.value))}
+                        />
+
+                        <span>{speed} ms</span>
+                    </div>
                 </div>
 
                 <div className='Simulator-stats'>
@@ -466,6 +498,36 @@ function Simulation(){
                             }))
                         }
                     />
+                    <div className='Simulator-table-panel'>
+                        <div className='Simulator-section-header'>
+                            <Cpu size={18}/>
+                            <span>Tabla de transiciones</span>
+                        </div>
+
+                        <table className='Transition-table'>
+                            <thead>
+                                <tr>
+                                    <th>Estado</th>
+                                    <th>Lee</th>
+                                    <th>Escribe</th>
+                                    <th>Movimiento</th>
+                                    <th>Siguiente</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {transitions.map((t) => (
+                                    <tr key={t.id}>
+                                        <td>{t.currentState}</td>
+                                        <td>{t.readSymbol}</td>
+                                        <td>{t.writeSymbol}</td>
+                                        <td>{t.direction}</td>
+                                        <td>{t.nextState}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
                 <div className='Simulator-transitions-panel'>
@@ -525,7 +587,6 @@ function Simulation(){
                         ))}
                     </div>
                 </div>
-
                 <div className='Simulator-chomsky-panel'>
                     <div className='Simulator-section-header'>
                         <BrainCircuit size={18}/>
