@@ -503,7 +503,1119 @@ const MACHINES = [
                 blankSymbol: 'B',
                 headPosition: 0
             }
+        },
+        {
+            id: 'anbncn',
+            name: 'a^n b^n c^n',
+            description: 'Acepta cadenas del tipo a^n b^n c^n.',
+
+            states: [
+                { id: 'q0', name: 'q0', initial: true, accept: false, reject: false },
+
+                { id: 'q1', name: 'q1', initial: false, accept: false, reject: false },
+                { id: 'q2', name: 'q2', initial: false, accept: false, reject: false },
+                { id: 'q3', name: 'q3', initial: false, accept: false, reject: false },
+
+                { id: 'q_accept', name: 'q_accept', initial: false, accept: true, reject: false },
+                { id: 'q_reject', name: 'q_reject', initial: false, accept: false, reject: true }
+            ],
+
+            transitions: [
+
+                // =========================
+                // q0 -> buscar a
+                // =========================
+
+                {
+                    id: 't1',
+                    currentState: 'q0',
+                    readSymbol: 'X',
+                    writeSymbol: 'X',
+                    direction: 'R',
+                    nextState: 'q0'
+                },
+
+                {
+                    id: 't2',
+                    currentState: 'q0',
+                    readSymbol: 'a',
+                    writeSymbol: 'X',
+                    direction: 'R',
+                    nextState: 'q1'
+                },
+
+                {
+                    id: 't3',
+                    currentState: 'q0',
+                    readSymbol: 'Y',
+                    writeSymbol: 'Y',
+                    direction: 'R',
+                    nextState: 'q0'
+                },
+
+                {
+                    id: 't4',
+                    currentState: 'q0',
+                    readSymbol: 'Z',
+                    writeSymbol: 'Z',
+                    direction: 'R',
+                    nextState: 'q0'
+                },
+
+                {
+                    id: 't5',
+                    currentState: 'q0',
+                    readSymbol: 'B',
+                    writeSymbol: 'B',
+                    direction: 'S',
+                    nextState: 'q_accept'
+                },
+
+                // =========================
+                // q1 -> buscar b
+                // =========================
+
+                {
+                    id: 't6',
+                    currentState: 'q1',
+                    readSymbol: 'a',
+                    writeSymbol: 'a',
+                    direction: 'R',
+                    nextState: 'q1'
+                },
+
+                {
+                    id: 't7',
+                    currentState: 'q1',
+                    readSymbol: 'Y',
+                    writeSymbol: 'Y',
+                    direction: 'R',
+                    nextState: 'q1'
+                },
+
+                {
+                    id: 't8',
+                    currentState: 'q1',
+                    readSymbol: 'b',
+                    writeSymbol: 'Y',
+                    direction: 'R',
+                    nextState: 'q2'
+                },
+
+                {
+                    id: 't9',
+                    currentState: 'q1',
+                    readSymbol: 'c',
+                    writeSymbol: 'c',
+                    direction: 'S',
+                    nextState: 'q_reject'
+                },
+
+                {
+                    id: 't10',
+                    currentState: 'q1',
+                    readSymbol: 'Z',
+                    writeSymbol: 'Z',
+                    direction: 'S',
+                    nextState: 'q_reject'
+                },
+
+                // =========================
+                // q2 -> buscar c
+                // =========================
+
+                {
+                    id: 't11',
+                    currentState: 'q2',
+                    readSymbol: 'b',
+                    writeSymbol: 'b',
+                    direction: 'R',
+                    nextState: 'q2'
+                },
+
+                {
+                    id: 't12',
+                    currentState: 'q2',
+                    readSymbol: 'Z',
+                    writeSymbol: 'Z',
+                    direction: 'R',
+                    nextState: 'q2'
+                },
+
+                {
+                    id: 't13',
+                    currentState: 'q2',
+                    readSymbol: 'c',
+                    writeSymbol: 'Z',
+                    direction: 'L',
+                    nextState: 'q3'
+                },
+
+                {
+                    id: 't14',
+                    currentState: 'q2',
+                    readSymbol: 'B',
+                    writeSymbol: 'B',
+                    direction: 'S',
+                    nextState: 'q_reject'
+                },
+
+                // =========================
+                // q3 -> regresar al inicio
+                // =========================
+
+                {
+                    id: 't15',
+                    currentState: 'q3',
+                    readSymbol: 'a',
+                    writeSymbol: 'a',
+                    direction: 'L',
+                    nextState: 'q3'
+                },
+
+                {
+                    id: 't16',
+                    currentState: 'q3',
+                    readSymbol: 'b',
+                    writeSymbol: 'b',
+                    direction: 'L',
+                    nextState: 'q3'
+                },
+
+                {
+                    id: 't17',
+                    currentState: 'q3',
+                    readSymbol: 'c',
+                    writeSymbol: 'c',
+                    direction: 'L',
+                    nextState: 'q3'
+                },
+
+                {
+                    id: 't18',
+                    currentState: 'q3',
+                    readSymbol: 'X',
+                    writeSymbol: 'X',
+                    direction: 'L',
+                    nextState: 'q3'
+                },
+
+                {
+                    id: 't19',
+                    currentState: 'q3',
+                    readSymbol: 'Y',
+                    writeSymbol: 'Y',
+                    direction: 'L',
+                    nextState: 'q3'
+                },
+
+                {
+                    id: 't20',
+                    currentState: 'q3',
+                    readSymbol: 'Z',
+                    writeSymbol: 'Z',
+                    direction: 'L',
+                    nextState: 'q3'
+                },
+
+                {
+                    id: 't21',
+                    currentState: 'q3',
+                    readSymbol: 'B',
+                    writeSymbol: 'B',
+                    direction: 'R',
+                    nextState: 'q0'
+                }
+            ],
+
+            tape: {
+                input: 'aaabbbccc',
+                blankSymbol: 'B',
+                headPosition: 0
+            }
+        },
+        {
+        id: 'binary-addition-correct',
+        name: 'Suma Binaria Correcta',
+        description: 'Suma dos números binarios separados por +.',
+
+        states: [
+            { id: 'q0', name: 'q0', initial: true, accept: false, reject: false },
+
+            { id: 'qRight', name: 'qRight', initial: false, accept: false, reject: false },
+
+            { id: 'qAdd0', name: 'qAdd0', initial: false, accept: false, reject: false },
+            { id: 'qAdd1', name: 'qAdd1', initial: false, accept: false, reject: false },
+
+            { id: 'qCarry', name: 'qCarry', initial: false, accept: false, reject: false },
+
+            { id: 'qBack', name: 'qBack', initial: false, accept: false, reject: false },
+
+            { id: 'q_accept', name: 'q_accept', initial: false, accept: true, reject: false },
+            { id: 'q_reject', name: 'q_reject', initial: false, accept: false, reject: true }
+        ],
+
+        transitions: [
+
+            // =========================
+            // q0 -> ir al final
+            // =========================
+
+            {
+                id: 't1',
+                currentState: 'q0',
+                readSymbol: '0',
+                writeSymbol: '0',
+                direction: 'R',
+                nextState: 'q0'
+            },
+
+            {
+                id: 't2',
+                currentState: 'q0',
+                readSymbol: '1',
+                writeSymbol: '1',
+                direction: 'R',
+                nextState: 'q0'
+            },
+
+            {
+                id: 't3',
+                currentState: 'q0',
+                readSymbol: '+',
+                writeSymbol: '+',
+                direction: 'R',
+                nextState: 'q0'
+            },
+
+            {
+                id: 't4',
+                currentState: 'q0',
+                readSymbol: 'B',
+                writeSymbol: 'B',
+                direction: 'L',
+                nextState: 'qRight'
+            },
+
+            // =========================
+            // qRight -> procesar último bit
+            // =========================
+
+            {
+                id: 't5',
+                currentState: 'qRight',
+                readSymbol: '0',
+                writeSymbol: 'B',
+                direction: 'L',
+                nextState: 'qAdd0'
+            },
+
+            {
+                id: 't6',
+                currentState: 'qRight',
+                readSymbol: '1',
+                writeSymbol: 'B',
+                direction: 'L',
+                nextState: 'qAdd1'
+            },
+
+            {
+                id: 't7',
+                currentState: 'qRight',
+                readSymbol: '+',
+                writeSymbol: '+',
+                direction: 'S',
+                nextState: 'q_accept'
+            },
+
+            // =========================
+            // qAdd0
+            // =========================
+
+            {
+                id: 't8',
+                currentState: 'qAdd0',
+                readSymbol: '0',
+                writeSymbol: '0',
+                direction: 'L',
+                nextState: 'qAdd0'
+            },
+
+            {
+                id: 't9',
+                currentState: 'qAdd0',
+                readSymbol: '1',
+                writeSymbol: '1',
+                direction: 'L',
+                nextState: 'qAdd0'
+            },
+
+            {
+                id: 't10',
+                currentState: 'qAdd0',
+                readSymbol: '+',
+                writeSymbol: '+',
+                direction: 'L',
+                nextState: 'qBack'
+            },
+
+            // =========================
+            // qAdd1
+            // =========================
+
+            {
+                id: 't11',
+                currentState: 'qAdd1',
+                readSymbol: '0',
+                writeSymbol: '1',
+                direction: 'R',
+                nextState: 'q0'
+            },
+
+            {
+                id: 't12',
+                currentState: 'qAdd1',
+                readSymbol: '1',
+                writeSymbol: '0',
+                direction: 'L',
+                nextState: 'qCarry'
+            },
+
+            {
+                id: 't13',
+                currentState: 'qAdd1',
+                readSymbol: '+',
+                writeSymbol: '+',
+                direction: 'L',
+                nextState: 'qCarry'
+            },
+
+            // =========================
+            // qCarry
+            // =========================
+
+            {
+                id: 't14',
+                currentState: 'qCarry',
+                readSymbol: '0',
+                writeSymbol: '1',
+                direction: 'R',
+                nextState: 'q0'
+            },
+
+            {
+                id: 't15',
+                currentState: 'qCarry',
+                readSymbol: '1',
+                writeSymbol: '0',
+                direction: 'L',
+                nextState: 'qCarry'
+            },
+
+            {
+                id: 't16',
+                currentState: 'qCarry',
+                readSymbol: 'B',
+                writeSymbol: '1',
+                direction: 'R',
+                nextState: 'q_accept'
+            },
+
+            // =========================
+            // qBack
+            // =========================
+
+            {
+                id: 't17',
+                currentState: 'qBack',
+                readSymbol: '0',
+                writeSymbol: '0',
+                direction: 'L',
+                nextState: 'qBack'
+            },
+
+            {
+                id: 't18',
+                currentState: 'qBack',
+                readSymbol: '1',
+                writeSymbol: '1',
+                direction: 'L',
+                nextState: 'qBack'
+            },
+
+            {
+                id: 't19',
+                currentState: 'qBack',
+                readSymbol: 'B',
+                writeSymbol: 'B',
+                direction: 'R',
+                nextState: 'q0'
+            }
+        ],
+
+        tape: {
+            input: '1+10',
+            blankSymbol: 'B',
+            headPosition: 0
         }
+    },
+    {
+        id: 'sort-a-c',
+        name: 'Ordenamiento A/C',
+        description: 'Ordena símbolos dejando todas las A antes que las C.',
+
+        states: [
+            { id: 'q0', name: 'q0', initial: true, accept: false, reject: false },
+
+            { id: 'qFindA', name: 'qFindA', initial: false, accept: false, reject: false },
+
+            { id: 'qSwap', name: 'qSwap', initial: false, accept: false, reject: false },
+
+            { id: 'qReturn', name: 'qReturn', initial: false, accept: false, reject: false },
+
+            { id: 'q_accept', name: 'q_accept', initial: false, accept: true, reject: false }
+        ],
+
+        transitions: [
+
+            // =========================
+            // q0 -> buscar primera C
+            // =========================
+
+            {
+                id: 't1',
+                currentState: 'q0',
+                readSymbol: 'A',
+                writeSymbol: 'A',
+                direction: 'R',
+                nextState: 'q0'
+            },
+
+            {
+                id: 't2',
+                currentState: 'q0',
+                readSymbol: 'C',
+                writeSymbol: 'C',
+                direction: 'R',
+                nextState: 'qFindA'
+            },
+
+            {
+                id: 't3',
+                currentState: 'q0',
+                readSymbol: 'B',
+                writeSymbol: 'B',
+                direction: 'S',
+                nextState: 'q_accept'
+            },
+
+            // =========================
+            // qFindA -> buscar una A
+            // =========================
+
+            {
+                id: 't4',
+                currentState: 'qFindA',
+                readSymbol: 'C',
+                writeSymbol: 'C',
+                direction: 'R',
+                nextState: 'qFindA'
+            },
+
+            {
+                id: 't5',
+                currentState: 'qFindA',
+                readSymbol: 'A',
+                writeSymbol: 'C',
+                direction: 'L',
+                nextState: 'qSwap'
+            },
+
+            {
+                id: 't6',
+                currentState: 'qFindA',
+                readSymbol: 'B',
+                writeSymbol: 'B',
+                direction: 'S',
+                nextState: 'q_accept'
+            },
+
+            // =========================
+            // qSwap -> reemplazar la C encontrada por A
+            // =========================
+
+            {
+                id: 't7',
+                currentState: 'qSwap',
+                readSymbol: 'C',
+                writeSymbol: 'A',
+                direction: 'L',
+                nextState: 'qReturn'
+            },
+
+            // =========================
+            // qReturn -> volver al inicio
+            // =========================
+
+            {
+                id: 't8',
+                currentState: 'qReturn',
+                readSymbol: 'A',
+                writeSymbol: 'A',
+                direction: 'L',
+                nextState: 'qReturn'
+            },
+
+            {
+                id: 't9',
+                currentState: 'qReturn',
+                readSymbol: 'C',
+                writeSymbol: 'C',
+                direction: 'L',
+                nextState: 'qReturn'
+            },
+
+            {
+                id: 't10',
+                currentState: 'qReturn',
+                readSymbol: 'B',
+                writeSymbol: 'B',
+                direction: 'R',
+                nextState: 'q0'
+            }
+        ],
+
+        tape: {
+            input: 'CCCAAACACA',
+            blankSymbol: 'B',
+            headPosition: 0
+        }
+    },
+    {
+        id: 'balanced-parentheses',
+        name: 'Paréntesis Balanceados',
+        description: 'Verifica si los paréntesis están balanceados.',
+
+        states: [
+            { id: 'q0', name: 'q0', initial: true, accept: false, reject: false },
+
+            { id: 'qFindClose', name: 'qFindClose', initial: false, accept: false, reject: false },
+
+            { id: 'qReturn', name: 'qReturn', initial: false, accept: false, reject: false },
+
+            { id: 'q_accept', name: 'q_accept', initial: false, accept: true, reject: false },
+
+            { id: 'q_reject', name: 'q_reject', initial: false, accept: false, reject: true }
+        ],
+
+        transitions: [
+
+            {
+                id: 't1',
+                currentState: 'q0',
+                readSymbol: 'X',
+                writeSymbol: 'X',
+                direction: 'R',
+                nextState: 'q0'
+            },
+
+            {
+                id: 't2',
+                currentState: 'q0',
+                readSymbol: '(',
+                writeSymbol: 'X',
+                direction: 'R',
+                nextState: 'qFindClose'
+            },
+
+            {
+                id: 't3',
+                currentState: 'q0',
+                readSymbol: ')',
+                writeSymbol: ')',
+                direction: 'S',
+                nextState: 'q_reject'
+            },
+
+            {
+                id: 't4',
+                currentState: 'q0',
+                readSymbol: 'B',
+                writeSymbol: 'B',
+                direction: 'S',
+                nextState: 'q_accept'
+            },
+
+            // Buscar cierre
+
+            {
+                id: 't5',
+                currentState: 'qFindClose',
+                readSymbol: '(',
+                writeSymbol: '(',
+                direction: 'R',
+                nextState: 'qFindClose'
+            },
+
+            {
+                id: 't6',
+                currentState: 'qFindClose',
+                readSymbol: 'X',
+                writeSymbol: 'X',
+                direction: 'R',
+                nextState: 'qFindClose'
+            },
+
+            {
+                id: 't7',
+                currentState: 'qFindClose',
+                readSymbol: ')',
+                writeSymbol: 'X',
+                direction: 'L',
+                nextState: 'qReturn'
+            },
+
+            {
+                id: 't8',
+                currentState: 'qFindClose',
+                readSymbol: 'B',
+                writeSymbol: 'B',
+                direction: 'S',
+                nextState: 'q_reject'
+            },
+
+            // Volver
+
+            {
+                id: 't9',
+                currentState: 'qReturn',
+                readSymbol: '(',
+                writeSymbol: '(',
+                direction: 'L',
+                nextState: 'qReturn'
+            },
+
+            {
+                id: 't10',
+                currentState: 'qReturn',
+                readSymbol: ')',
+                writeSymbol: ')',
+                direction: 'L',
+                nextState: 'qReturn'
+            },
+
+            {
+                id: 't11',
+                currentState: 'qReturn',
+                readSymbol: 'X',
+                writeSymbol: 'X',
+                direction: 'L',
+                nextState: 'qReturn'
+            },
+
+            {
+                id: 't12',
+                currentState: 'qReturn',
+                readSymbol: 'B',
+                writeSymbol: 'B',
+                direction: 'R',
+                nextState: 'q0'
+            }
+        ],
+
+        tape: {
+            input: '(()(()))',
+            blankSymbol: 'B',
+            headPosition: 0
+        }
+    },
+    {
+        id: 'rule30',
+        name: 'Rule 30',
+        description: 'Simulación simplificada de autómata celular Rule 30.',
+
+        states: [
+            { id: 'q0', name: 'q0', initial: true, accept: false, reject: false },
+
+            { id: 'qFlip', name: 'qFlip', initial: false, accept: false, reject: false },
+
+            { id: 'q_accept', name: 'q_accept', initial: false, accept: true, reject: false }
+        ],
+
+        transitions: [
+
+            {
+                id: 't1',
+                currentState: 'q0',
+                readSymbol: '0',
+                writeSymbol: '1',
+                direction: 'R',
+                nextState: 'q0'
+            },
+
+            {
+                id: 't2',
+                currentState: 'q0',
+                readSymbol: '1',
+                writeSymbol: '0',
+                direction: 'R',
+                nextState: 'q0'
+            },
+
+            {
+                id: 't3',
+                currentState: 'q0',
+                readSymbol: 'B',
+                writeSymbol: 'B',
+                direction: 'S',
+                nextState: 'q_accept'
+            }
+        ],
+
+        tape: {
+            input: '101010101',
+            blankSymbol: 'B',
+            headPosition: 0
+        }
+    },
+    {
+        id: 'caesar-cipher',
+        name: 'Cifrado César',
+        description: 'Cifrado César con desplazamiento +3 usando - como blanco.',
+
+        states: [
+            { id: 'q0', name: 'q0', initial: true, accept: false, reject: false },
+
+            { id: 'q_accept', name: 'q_accept', initial: false, accept: true, reject: false }
+        ],
+
+        transitions: [
+
+            {
+                id: 't1',
+                currentState: 'q0',
+                readSymbol: 'A',
+                writeSymbol: 'D',
+                direction: 'R',
+                nextState: 'q0'
+            },
+
+            {
+                id: 't2',
+                currentState: 'q0',
+                readSymbol: 'B',
+                writeSymbol: 'E',
+                direction: 'R',
+                nextState: 'q0'
+            },
+
+            {
+                id: 't3',
+                currentState: 'q0',
+                readSymbol: 'C',
+                writeSymbol: 'F',
+                direction: 'R',
+                nextState: 'q0'
+            },
+
+            {
+                id: 't4',
+                currentState: 'q0',
+                readSymbol: 'D',
+                writeSymbol: 'G',
+                direction: 'R',
+                nextState: 'q0'
+            },
+
+            {
+                id: 't5',
+                currentState: 'q0',
+                readSymbol: 'E',
+                writeSymbol: 'H',
+                direction: 'R',
+                nextState: 'q0'
+            },
+
+            {
+                id: 't6',
+                currentState: 'q0',
+                readSymbol: 'F',
+                writeSymbol: 'I',
+                direction: 'R',
+                nextState: 'q0'
+            },
+
+            {
+                id: 't7',
+                currentState: 'q0',
+                readSymbol: 'G',
+                writeSymbol: 'J',
+                direction: 'R',
+                nextState: 'q0'
+            },
+
+            {
+                id: 't8',
+                currentState: 'q0',
+                readSymbol: 'H',
+                writeSymbol: 'K',
+                direction: 'R',
+                nextState: 'q0'
+            },
+
+            {
+                id: 't9',
+                currentState: 'q0',
+                readSymbol: 'I',
+                writeSymbol: 'L',
+                direction: 'R',
+                nextState: 'q0'
+            },
+
+            {
+                id: 't10',
+                currentState: 'q0',
+                readSymbol: 'J',
+                writeSymbol: 'M',
+                direction: 'R',
+                nextState: 'q0'
+            },
+
+            {
+                id: 't11',
+                currentState: 'q0',
+                readSymbol: 'K',
+                writeSymbol: 'N',
+                direction: 'R',
+                nextState: 'q0'
+            },
+
+            {
+                id: 't12',
+                currentState: 'q0',
+                readSymbol: 'L',
+                writeSymbol: 'O',
+                direction: 'R',
+                nextState: 'q0'
+            },
+
+            {
+                id: 't13',
+                currentState: 'q0',
+                readSymbol: 'M',
+                writeSymbol: 'P',
+                direction: 'R',
+                nextState: 'q0'
+            },
+
+            {
+                id: 't14',
+                currentState: 'q0',
+                readSymbol: 'N',
+                writeSymbol: 'Q',
+                direction: 'R',
+                nextState: 'q0'
+            },
+
+            {
+                id: 't15',
+                currentState: 'q0',
+                readSymbol: 'O',
+                writeSymbol: 'R',
+                direction: 'R',
+                nextState: 'q0'
+            },
+
+            {
+                id: 't16',
+                currentState: 'q0',
+                readSymbol: 'P',
+                writeSymbol: 'S',
+                direction: 'R',
+                nextState: 'q0'
+            },
+
+            {
+                id: 't17',
+                currentState: 'q0',
+                readSymbol: 'Q',
+                writeSymbol: 'T',
+                direction: 'R',
+                nextState: 'q0'
+            },
+
+            {
+                id: 't18',
+                currentState: 'q0',
+                readSymbol: 'R',
+                writeSymbol: 'U',
+                direction: 'R',
+                nextState: 'q0'
+            },
+
+            {
+                id: 't19',
+                currentState: 'q0',
+                readSymbol: 'S',
+                writeSymbol: 'V',
+                direction: 'R',
+                nextState: 'q0'
+            },
+
+            {
+                id: 't20',
+                currentState: 'q0',
+                readSymbol: 'T',
+                writeSymbol: 'W',
+                direction: 'R',
+                nextState: 'q0'
+            },
+
+            {
+                id: 't21',
+                currentState: 'q0',
+                readSymbol: 'U',
+                writeSymbol: 'X',
+                direction: 'R',
+                nextState: 'q0'
+            },
+
+            {
+                id: 't22',
+                currentState: 'q0',
+                readSymbol: 'V',
+                writeSymbol: 'Y',
+                direction: 'R',
+                nextState: 'q0'
+            },
+
+            {
+                id: 't23',
+                currentState: 'q0',
+                readSymbol: 'W',
+                writeSymbol: 'Z',
+                direction: 'R',
+                nextState: 'q0'
+            },
+
+            {
+                id: 't24',
+                currentState: 'q0',
+                readSymbol: 'X',
+                writeSymbol: 'A',
+                direction: 'R',
+                nextState: 'q0'
+            },
+
+            {
+                id: 't25',
+                currentState: 'q0',
+                readSymbol: 'Y',
+                writeSymbol: 'B',
+                direction: 'R',
+                nextState: 'q0'
+            },
+
+            {
+                id: 't26',
+                currentState: 'q0',
+                readSymbol: 'Z',
+                writeSymbol: 'C',
+                direction: 'R',
+                nextState: 'q0'
+            },
+
+            {
+                id: 't27',
+                currentState: 'q0',
+                readSymbol: '-',
+                writeSymbol: '-',
+                direction: 'S',
+                nextState: 'q_accept'
+            }
+        ],
+
+        tape: {
+            input: 'HOLA',
+            blankSymbol: '-',
+            headPosition: 0
+        }
+    },
+    {
+        id: 'run-length',
+        name: 'Run Length',
+        description: 'Comprime secuencias repetidas.',
+
+        states: [
+            { id: 'q0', name: 'q0', initial: true, accept: false, reject: false },
+
+            { id: 'qA', name: 'qA', initial: false, accept: false, reject: false },
+
+            { id: 'qWrite', name: 'qWrite', initial: false, accept: false, reject: false },
+
+            { id: 'q_accept', name: 'q_accept', initial: false, accept: true, reject: false }
+        ],
+
+        transitions: [
+
+            // Buscar A
+
+            {
+                id: 't1',
+                currentState: 'q0',
+                readSymbol: 'A',
+                writeSymbol: 'X',
+                direction: 'R',
+                nextState: 'qA'
+            },
+
+            {
+                id: 't2',
+                currentState: 'q0',
+                readSymbol: 'B',
+                writeSymbol: 'B',
+                direction: 'S',
+                nextState: 'q_accept'
+            },
+
+            // Contar As
+
+            {
+                id: 't3',
+                currentState: 'qA',
+                readSymbol: 'A',
+                writeSymbol: 'X',
+                direction: 'R',
+                nextState: 'qA'
+            },
+
+            {
+                id: 't4',
+                currentState: 'qA',
+                readSymbol: 'B',
+                writeSymbol: 'B',
+                direction: 'L',
+                nextState: 'qWrite'
+            },
+
+            // Escribir resultado simple
+
+            {
+                id: 't5',
+                currentState: 'qWrite',
+                readSymbol: 'X',
+                writeSymbol: '5',
+                direction: 'R',
+                nextState: 'q_accept'
+            }
+        ],
+
+        tape: {
+            input: 'AAAAA',
+            blankSymbol: 'B',
+            headPosition: 0
+        }
+    }
 
 ];
 
