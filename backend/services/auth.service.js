@@ -55,3 +55,63 @@ exports.login = async (user, password) => {
         throw new Error('DB_ERROR');
     }
 };
+
+exports.register = async (name, email, password) => {
+    try {
+
+        const checkQuery = `
+            SELECT id
+            FROM users
+            WHERE email = $1
+        `;
+
+        const checkResult = await connection.query(checkQuery, [email]);
+
+        if (checkResult.rows.length > 0) {
+            throw new Error('USER_EXISTS');
+        }
+
+
+        const saltRounds = 10;
+        const hash = await bcrypt.hash(password, saltRounds);
+
+        const insertQuery = `
+            INSERT INTO users (name, email, password_hash)
+            VALUES ($1, $2, $3)
+            RETURNING id, name, email
+        `;
+
+        const result = await connection.query(insertQuery, [
+            name,
+            email,
+            hash
+        ]);
+
+        const user = result.rows[0];
+
+        const payload = {
+            id: user.id,
+            name: user.name,
+            email: user.email
+        };
+
+        const jwtKey = process.env.JWTKEY;
+
+        const token = jwt.sign(
+            payload,
+            jwtKey,
+            { expiresIn: '1h' }
+        );
+
+        return token;
+
+    } catch (error) {
+
+        if (error.message === 'USER_EXISTS') {
+            throw error;
+        }
+
+        console.error('DB ERROR:', error);
+        throw new Error('DB_ERROR');
+    }
+};

@@ -6,6 +6,8 @@ const http = require('http');
 const { Server } = require('socket.io');
 
 const authRoutes = require('./routes/auth.routes.js');
+const machinesRoutes = require('./routes/machines.routes');
+
 
 const simulationSocket = require(
     './sockets/simulation.socket'
@@ -23,6 +25,7 @@ app.use(cors({
 }));
 
 app.use(express.json());
+app.use('/machines', machinesRoutes);
 
 app.use('/auth', authRoutes);
 

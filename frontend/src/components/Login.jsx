@@ -111,11 +111,11 @@ function Login(){
                         {loading && <Loader size={25} className='spining-icon'/>}
                     </button>
                 </div>
-            </form>{/*
+            </form>
             <div className="createContent">
                 <span className='questionText'>Aun no tienes cuenta?</span>
-                <Link className="CreateAccount" to="/auth/register">Registrar</Link>
-            </div>*/}
+                <Link className="CreateAccount" to="/register">Registrar</Link>
+            </div>
         </div>
     );
 }

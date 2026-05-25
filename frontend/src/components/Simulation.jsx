@@ -17,6 +17,66 @@ import {
 } from 'lucide-react';
 
 function Simulation(){
+    const saveMachine = async () => { 
+        try {
+            const machinePayload = {
+                name: "Mi máquina",
+                description: "Guardada desde simulador",
+
+                tape_alphabet: Array.from(new Set(machineTape)).filter(Boolean),
+                input_alphabet: Array.from(new Set(savedTape.input.split(''))),
+
+                blank_symbol: savedTape.blankSymbol,
+
+                initial_state: initialState?.name || "",
+                accept_state: states.find(s => s.accept)?.name || "",
+                reject_state: states.find(s => s.reject)?.name || null,
+
+                states: states.map(s => ({
+                    name: s.name,
+                    is_initial: !!s.initial,
+                    is_accept: !!s.accept,
+                    is_reject: !!s.reject,
+                    pos_x: s.position?.x || 0,
+                    pos_y: s.position?.y || 0
+                })),
+
+                transitions: transitions.map(t => ({
+                    current_state: t.currentState,
+                    read_symbol: t.readSymbol,
+                    write_symbol: t.writeSymbol,
+                    move_direction: t.direction,
+                    next_state: t.nextState
+                }))
+            };
+
+            const response = await fetch(
+                `${import.meta.env.VITE_BACKEND_URL}/machines`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                    },
+                    body: JSON.stringify(machinePayload)
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error("Error guardando máquina");
+            }
+
+            const data = await response.json();
+
+            console.log("Máquina guardada:", data);
+
+            alert("Máquina guardada correctamente");
+
+        } catch (error) {
+            console.error(error);
+            alert("Error al guardar la máquina");
+        }
+    };
 
     const states =
         JSON.parse(
@@ -330,6 +390,12 @@ function Simulation(){
 
                         <span>{speed} ms</span>
                     </div>
+                    <button
+                        className='Simulator-control-button save'
+                        onClick={saveMachine}
+                    >
+                        Guardar
+                    </button>
                 </div>
 
                 <div className='Simulator-stats'>
