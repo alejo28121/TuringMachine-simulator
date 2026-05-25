@@ -237,6 +237,272 @@ const MACHINES = [
                 { id: 't3', currentState: 'q0', readSymbol: 'B', writeSymbol: 'B', direction: 'S', nextState: 'q1' }
             ],
             tape: { input: 'abab', blankSymbol: 'B', headPosition: 0 }
+        },
+        {
+            id: 'palindrome-ab',
+            name: 'Palíndromos a/b',
+            description: 'Acepta cadenas palíndromas sobre {a,b}.',
+
+            states: [
+                { id: 'q0', name: 'q0', initial: true, accept: false, reject: false },
+                { id: 'qa', name: 'qa', initial: false, accept: false, reject: false },
+                { id: 'qb', name: 'qb', initial: false, accept: false, reject: false },
+                { id: 'qva', name: 'qva', initial: false, accept: false, reject: false },
+                { id: 'qvb', name: 'qvb', initial: false, accept: false, reject: false },
+                { id: 'qret', name: 'qret', initial: false, accept: false, reject: false },
+
+                { id: 'q_accept', name: 'q_accept', initial: false, accept: true, reject: false },
+                { id: 'q_reject', name: 'q_reject', initial: false, accept: false, reject: true }
+            ],
+
+            transitions: [
+
+                // =========================
+                // q0
+                // =========================
+
+                {
+                    id: 't1',
+                    currentState: 'q0',
+                    readSymbol: 'X',
+                    writeSymbol: 'X',
+                    direction: 'R',
+                    nextState: 'q0'
+                },
+
+                {
+                    id: 't2',
+                    currentState: 'q0',
+                    readSymbol: 'a',
+                    writeSymbol: 'X',
+                    direction: 'R',
+                    nextState: 'qa'
+                },
+
+                {
+                    id: 't3',
+                    currentState: 'q0',
+                    readSymbol: 'b',
+                    writeSymbol: 'X',
+                    direction: 'R',
+                    nextState: 'qb'
+                },
+
+                {
+                    id: 't4',
+                    currentState: 'q0',
+                    readSymbol: 'B',
+                    writeSymbol: 'B',
+                    direction: 'S',
+                    nextState: 'q_accept'
+                },
+
+                // =========================
+                // qa
+                // =========================
+
+                {
+                    id: 't5',
+                    currentState: 'qa',
+                    readSymbol: 'a',
+                    writeSymbol: 'a',
+                    direction: 'R',
+                    nextState: 'qa'
+                },
+
+                {
+                    id: 't6',
+                    currentState: 'qa',
+                    readSymbol: 'b',
+                    writeSymbol: 'b',
+                    direction: 'R',
+                    nextState: 'qa'
+                },
+
+                {
+                    id: 't7',
+                    currentState: 'qa',
+                    readSymbol: 'X',
+                    writeSymbol: 'X',
+                    direction: 'R',
+                    nextState: 'qa'
+                },
+
+                {
+                    id: 't8',
+                    currentState: 'qa',
+                    readSymbol: 'B',
+                    writeSymbol: 'B',
+                    direction: 'L',
+                    nextState: 'qva'
+                },
+
+                // =========================
+                // qva
+                // =========================
+
+                {
+                    id: 't9',
+                    currentState: 'qva',
+                    readSymbol: 'X',
+                    writeSymbol: 'X',
+                    direction: 'L',
+                    nextState: 'qva'
+                },
+
+                {
+                    id: 't10',
+                    currentState: 'qva',
+                    readSymbol: 'a',
+                    writeSymbol: 'X',
+                    direction: 'L',
+                    nextState: 'qret'
+                },
+
+                {
+                    id: 't11',
+                    currentState: 'qva',
+                    readSymbol: 'b',
+                    writeSymbol: 'b',
+                    direction: 'S',
+                    nextState: 'q_reject'
+                },
+
+                {
+                    id: 't12',
+                    currentState: 'qva',
+                    readSymbol: 'B',
+                    writeSymbol: 'B',
+                    direction: 'S',
+                    nextState: 'q_accept'
+                },
+
+                // =========================
+                // qb
+                // =========================
+
+                {
+                    id: 't13',
+                    currentState: 'qb',
+                    readSymbol: 'a',
+                    writeSymbol: 'a',
+                    direction: 'R',
+                    nextState: 'qb'
+                },
+
+                {
+                    id: 't14',
+                    currentState: 'qb',
+                    readSymbol: 'b',
+                    writeSymbol: 'b',
+                    direction: 'R',
+                    nextState: 'qb'
+                },
+
+                {
+                    id: 't15',
+                    currentState: 'qb',
+                    readSymbol: 'X',
+                    writeSymbol: 'X',
+                    direction: 'R',
+                    nextState: 'qb'
+                },
+
+                {
+                    id: 't16',
+                    currentState: 'qb',
+                    readSymbol: 'B',
+                    writeSymbol: 'B',
+                    direction: 'L',
+                    nextState: 'qvb'
+                },
+
+                // =========================
+                // qvb
+                // =========================
+
+                {
+                    id: 't17',
+                    currentState: 'qvb',
+                    readSymbol: 'X',
+                    writeSymbol: 'X',
+                    direction: 'L',
+                    nextState: 'qvb'
+                },
+
+                {
+                    id: 't18',
+                    currentState: 'qvb',
+                    readSymbol: 'b',
+                    writeSymbol: 'X',
+                    direction: 'L',
+                    nextState: 'qret'
+                },
+
+                {
+                    id: 't19',
+                    currentState: 'qvb',
+                    readSymbol: 'a',
+                    writeSymbol: 'a',
+                    direction: 'S',
+                    nextState: 'q_reject'
+                },
+
+                {
+                    id: 't20',
+                    currentState: 'qvb',
+                    readSymbol: 'B',
+                    writeSymbol: 'B',
+                    direction: 'S',
+                    nextState: 'q_accept'
+                },
+
+                // =========================
+                // qret
+                // =========================
+
+                {
+                    id: 't21',
+                    currentState: 'qret',
+                    readSymbol: 'a',
+                    writeSymbol: 'a',
+                    direction: 'L',
+                    nextState: 'qret'
+                },
+
+                {
+                    id: 't22',
+                    currentState: 'qret',
+                    readSymbol: 'b',
+                    writeSymbol: 'b',
+                    direction: 'L',
+                    nextState: 'qret'
+                },
+
+                {
+                    id: 't23',
+                    currentState: 'qret',
+                    readSymbol: 'X',
+                    writeSymbol: 'X',
+                    direction: 'L',
+                    nextState: 'qret'
+                },
+
+                {
+                    id: 't24',
+                    currentState: 'qret',
+                    readSymbol: 'B',
+                    writeSymbol: 'B',
+                    direction: 'R',
+                    nextState: 'q0'
+                }
+            ],
+
+            tape: {
+                input: 'abba',
+                blankSymbol: 'B',
+                headPosition: 0
+            }
         }
 
 ];
