@@ -1,55 +1,95 @@
+// simulationSocket.js
+
 const {
-    executeMachine
+    createMachine,
+    stepMachine
 } = require('../services/simulation.service');
 
-const runningMachines = {};
-const machineSpeed = {};
+const machines = {};
 
-function simulationSocket(io){
+function sleep(ms) {
+    return new Promise(r => setTimeout(r, ms));
+}
+
+function simulationSocket(io) {
     io.on('connection', (socket) => {
+
         console.log('Cliente conectado:', socket.id);
-        socket.on('set-speed', (speed) => {
-            machineSpeed[socket.id] = speed;
+
+        socket.on('init-machine', (data) => {
+            machines[socket.id] = createMachine(data);
+            machines[socket.id].running = false; 
         });
-        socket.on(
-            'run-machine',
-            async (machineData) => {
-                try{
-                    runningMachines[socket.id] = true;
-                    const speed =
-                        machineSpeed[socket.id] || 1000;
-                    const result =
-                        await executeMachine(
-                            machineData,
-                            socket,
-                            runningMachines,
-                            speed
-                        );
-                    socket.emit(
-                        'machine-finished',
-                        result
-                    );
-                }catch(error){
-                    runningMachines[socket.id] = false;
-                    socket.emit(
-                        'machine-error',
-                        {
-                            message: error.message
-                        }
-                    );
+        socket.on('run-machine', async (data) => {
+
+            const m = createMachine(data);
+            m.running = true;
+            m.speed = data.speed || 1000;
+
+            machines[socket.id] = m;
+
+            socket.emit('machine-started');
+
+            
+            while (machines[socket.id]?.running) {
+
+                const result = stepMachine(m);
+
+                socket.emit('machine-step', {
+                    tape: [...m.tapeArray],
+                    headPosition: m.head,
+                    currentState: m.currentState.name,
+                    step: m.step,
+                    activeTransition: result.transition?.id || null
+                });
+
+                if (result.status !== 'running') {
+                    socket.emit(`machine-${result.status}`, result);
+                    socket.emit('machine-finished', result);
+                    break;
                 }
+
+                await sleep(m.speed);
             }
-        );
+        });
+
+        
+        socket.on('machine-step-manual', () => {
+            let m = machines[socket.id];
+
+            if (!m) {
+                socket.emit('machine-error', {
+                    message: 'Máquina no inicializada'
+                });
+                return;
+            }
+
+            const result = stepMachine(m);
+
+            socket.emit('machine-step', {
+                tape: [...m.tapeArray],
+                headPosition: m.head,
+                currentState: m.currentState.name,
+                step: m.step,
+                activeTransition: result.transition?.id || null
+            });
+
+            if (result.status !== 'running') {
+                socket.emit(`machine-${result.status}`, result);
+                socket.emit('machine-finished', result);
+            }
+        });
+
+        
         socket.on('stop-machine', () => {
-                runningMachines[socket.id] = false;
+            if (machines[socket.id]) {
+                machines[socket.id].running = false;
             }
-        );
+        });
+
         socket.on('disconnect', () => {
-                console.log('Cliente desconectado');
-                delete runningMachines[socket.id];
-                delete machineSpeed[socket.id];
-            }
-        );
+            delete machines[socket.id];
+        });
     });
 }
 

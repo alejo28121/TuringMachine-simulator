@@ -18,7 +18,8 @@ import {
     GitBranch,
     Rows3,
     Play,
-    BrainCog 
+    BrainCog,
+    DatabaseBackup 
 } from "lucide-react";
 
 function Dashboard(){
@@ -77,7 +78,7 @@ function Dashboard(){
         {
             name: "Maquinas",
             route: "/dashboard/machines",
-            icon: Circle
+            icon: DatabaseBackup
         },
         {
             name: "Estados",

@@ -90,6 +90,11 @@ function Simulation(){
 
         setRunning(false);
         setExecutionLog([]);
+            socket.emit('init-machine', {
+            states,
+            transitions,
+            tape: savedTape
+        });
     };
 
     const executeMachine = () => {
@@ -151,7 +156,7 @@ function Simulation(){
         socket.on(
             'machine-step',
             (data) => {
-
+                
                 setMachineTape(data.tape);
 
                 setHeadPosition(

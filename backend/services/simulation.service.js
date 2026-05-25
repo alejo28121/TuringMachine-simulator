@@ -1,187 +1,69 @@
-const delay = (ms) =>
-    new Promise(resolve =>
-        setTimeout(resolve, ms)
+
+
+function createMachine(machineData) {
+    const { states, transitions, tape } = machineData;
+
+    const blank = tape.blankSymbol || 'B';
+
+    return {
+        states,
+        transitions,
+        blank,
+
+        tapeArray: (
+            blank.repeat(10) +
+            (tape.input || '') +
+            blank.repeat(15)
+        ).split(''),
+
+        head: (tape.headPosition || 0) + 10,
+
+        currentState: states.find(s => s.initial),
+        step: 0
+    };
+}
+
+function stepMachine(m) {
+    const currentSymbol = m.tapeArray[m.head];
+
+    const transition = m.transitions.find(t =>
+        t.currentState === m.currentState.name &&
+        t.readSymbol === currentSymbol
     );
 
-async function executeMachine(machineData, socket, runningMachines, speed = 700){
-    const {states, transitions, tape} = machineData;
-    const blank = tape.blankSymbol || 'B';
-    let currentState = states.find( state => state.initial);
-
-    if(!currentState){
-        throw new Error('No existe estado inicial');
+    if (!transition) {
+        return { status: 'halted', transition: null };
     }
 
-    let head = (tape.headPosition || 0) + 10;
+    m.tapeArray[m.head] = transition.writeSymbol;
 
-    let tapeArray = (
-        blank.repeat(10) +
-        (tape.input || '') +
-        blank.repeat(15)
-    ).split('');
+    if (transition.direction === 'R') m.head++;
+    if (transition.direction === 'L') m.head--;
 
-    let step = 0;
+    const nextState = m.states.find(s => s.name === transition.nextState);
 
-    const MAX_STEPS = 1000;
-
-    while(runningMachines[socket.id]){
-        if(step >= MAX_STEPS){
-            socket.emit(
-                'machine-error',
-                {
-                    message:
-                        'Límite de pasos excedido'
-                }
-            );
-            runningMachines[socket.id] = false;
-            return {
-                accepted: false,
-                reason:
-                    'Infinite loop'
-            };
-        }
-        if(head < 0){
-            tapeArray.unshift(blank);
-            head = 0;
-        }
-        if(head >= tapeArray.length){
-            tapeArray.push(blank);
-        }
-        const currentSymbol = tapeArray[head];
-        const transition =transitions.find(
-            transition =>
-                transition.currentState ===
-                currentState.name &&
-                transition.readSymbol ===
-                currentSymbol
-        );
-        socket.emit(
-            'machine-step',
-            {
-                tape: [...tapeArray],
-                headPosition: head,
-                currentState:
-                    currentState.name,
-                readSymbol:
-                    currentSymbol,
-                step,
-                activeTransition:
-                    transition
-                    ? transition.id
-                    : null
-            }
-        );
-        await delay(speed);
-        if(!transition){
-            socket.emit(
-                'machine-finished',
-                {
-                    result: 'halted'
-                }
-            );
-            runningMachines[socket.id] = false;
-            return {
-                accepted: false,
-                reason:
-                    'No existe transición válida'
-            };
-        }
-        tapeArray[head] =
-            transition.writeSymbol;
-        if(transition.direction === 'R'){
-            head++;
-        }
-        if(transition.direction === 'L'){
-            head--;
-        }
-        if(transition.direction === 'S'){
-            head = head;
-        }
-        const nextState = states.find(
-            state =>
-                state.name ===
-                transition.nextState
-        );
-        if(!nextState){
-            socket.emit(
-                'machine-error',
-                {
-                    message:
-                        'Estado inválido'
-                }
-            );
-            runningMachines[socket.id] = false;
-            return {
-                accepted: false,
-                reason:
-                    'Estado inválido'
-            };
-        }
-        currentState = nextState;
-        step++;
-        socket.emit(
-            'machine-step',
-            {
-                tape: [...tapeArray],
-                headPosition: head,
-                currentState:
-                    currentState.name,
-                readSymbol:
-                    tapeArray[head],
-                step,
-                activeTransition:
-                    transition.id
-            }
-        );
-        if(currentState.accept){
-            socket.emit(
-                'machine-accepted',
-                {
-                    state:
-                        currentState.name,
-                    tape:
-                        tapeArray.join('')
-                }
-            );
-            socket.emit(
-                'machine-finished',
-                {
-                    result: 'accepted'
-                }
-            );
-            runningMachines[socket.id] = false;
-            return {
-                accepted: true,
-                tape:
-                    tapeArray.join('')
-            };
-        }
-        if(currentState.reject){
-            socket.emit(
-                'machine-rejected',
-                {
-                    state:
-                        currentState.name,
-                    tape:
-                        tapeArray.join('')
-                }
-            );
-            socket.emit(
-                'machine-finished',
-                {
-                    result: 'rejected'
-                }
-            );
-            runningMachines[socket.id] = false;
-            return {
-                accepted: false,
-                tape:
-                    tapeArray.join('')
-            };
-        }
+    if (!nextState) {
+        return { status: 'error', message: 'Estado inválido' };
     }
+
+    m.currentState = nextState;
+    m.step++;
+
+    if (m.currentState.accept) {
+        return { status: 'accepted' };
+    }
+
+    if (m.currentState.reject) {
+        return { status: 'rejected' };
+    }
+
+    return {
+        status: 'running',
+        transition
+    };
 }
 
 module.exports = {
-    executeMachine
+    createMachine,
+    stepMachine
 };
